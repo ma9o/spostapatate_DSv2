@@ -1,1 +1,1 @@
-![Schema](https://github.com/ma9o/spostapatate_DSv2/master/image.png)
+![Schema](https://github.com/ma9o/spostapatate_DSv2/blob/master/image.png)
