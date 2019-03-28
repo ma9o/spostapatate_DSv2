@@ -1,1 +1,1 @@
-Lo schema del cablaggio è andato perduto con la distruzione della biblioteca di Alessandria
+![Schema](https://github.com/ma9o/spostapatate_DSv2/master/image.png)
