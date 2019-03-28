@@ -1,7 +1,7 @@
-#define _XTAL_FREQ 200000   // frequenza oscillatore RC smarzo = 200kHz
+#define _XTAL_FREQ 200000 // frequenza oscillatore RC smarzo = 200kHz
 
 // configurazione pin LCD
-#define RS RA0  
+#define RS RA0
 #define EN RA1
 #define D4 RA2
 #define D5 RA3
@@ -23,22 +23,23 @@
 #pragma config CP = OFF // Flash Program Memory Code Protection bit (Code protection off)
 //END CONFIG
 
-int main() {
-    TRISA = 0x00;   //  pin 2-7 in modalit‡ output per scrivere sull'LCD
-    TRISB = 0xFF;   //  pin 21-28 in modalit‡ input per ricevere i conti del rpi
-    TRISCbits.TRISC0 = 1;   //    
-    TRISCbits.TRISC1 = 1;   //  pin 11-13 come sopra
-    TRISCbits.TRISC2 = 1;   //
-    TRISCbits.TRISC3 = 0;   //
-    TRISCbits.TRISC4 = 0;   //  pin 14-14 in modalit‡ output per inviare al rpi la conversione dal magazzino
-    
+int main()
+{
+    TRISA = 0x00; //  pin 2-7 in modalit√† output per scrivere sull'LCD
+    TRISB = 0xFF; //  pin 21-28 in modalit√† input per ricevere i conti del rpi
+    TRISCbits.TRISC0 = 1; //
+    TRISCbits.TRISC1 = 1; //  pin 11-13 come sopra
+    TRISCbits.TRISC2 = 1; //
+    TRISCbits.TRISC3 = 0; //
+    TRISCbits.TRISC4 = 0; //  pin 14-14 in modalit√† output per inviare al rpi la conversione dal magazzino
+
     //  inizializzazione
     Lcd_Init();
     char uova;
     char sposta;
     char mag;
     char c;
-    
+
     //test lcd
     Lcd_Clear();
     Lcd_Set_Cursor(1, 1);
@@ -46,26 +47,26 @@ int main() {
     __delay_ms(2000);
 
     while (1) {
-        
+
         //conteggio e conversione magazzino
         PORTCbits.RC3 = 0;
         PORTCbits.RC4 = 0;
         c = countEggs(PORTCbits.RC0, PORTCbits.RC1, PORTCbits.RC2);
         switch (c) {
-            case "0":
-                break;
-            case "1":
-                PORTCbits.RC3 = 1;
-                PORTCbits.RC4 = 0;
-                break;
-            case "2":
-                PORTCbits.RC3 = 0;
-                PORTCbits.RC4 = 1;
-                break;
-            case "3":
-                PORTCbits.RC3 = 1;
-                PORTCbits.RC4 = 1;
-                break;
+        case "0":
+            break;
+        case "1":
+            PORTCbits.RC3 = 1;
+            PORTCbits.RC4 = 0;
+            break;
+        case "2":
+            PORTCbits.RC3 = 0;
+            PORTCbits.RC4 = 1;
+            break;
+        case "3":
+            PORTCbits.RC3 = 1;
+            PORTCbits.RC4 = 1;
+            break;
         }
 
         // codifica dalle info del rpi a caratteri stampabili
@@ -73,7 +74,6 @@ int main() {
         sposta = countEggs(PORTBbits.RB3, PORTBbits.RB4);
         mag = countEggs(PORTBbits.RB5, PORTBbits.RB6, PORTBbits.RB7);
 
-        
         //stampa caratteri
         Lcd_Clear();
         Lcd_Set_Cursor(1, 1);
@@ -85,7 +85,6 @@ int main() {
         Lcd_Write_String("Spostamento:");
         Lcd_Write_Char(sposta);
         __delay_ms(2000);
-
     }
     return 0;
 }
